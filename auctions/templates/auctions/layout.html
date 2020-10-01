@@ -10,28 +10,40 @@
     <body>
         <h1>Auctions</h1>
         <div>
-            {% if user.is_authenticated %}
+            <!-- {% if user.is_authenticated %}
                 Signed in as <strong>{{ user.username }}</strong>.
             {% else %}
                 Not signed in.
-            {% endif %}
+            {% endif %} -->
         </div>
         <ul class="nav">
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'index' %}">Active Listings</a>
             </li>
-            {% if user.is_authenticated %}
-                <li class="nav-item">
+            <!-- {% if user.is_authenticated %} -->
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'categories' %}">Categories</a>
+            </li>  
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'watch_list' %}">Watch List</a>
+            </li>  
+            
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'create_listing' %}">Create Listing</a>
+            </li>  
+
+            <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
                 </li>
-            {% else %}
+            <!-- {% else %} -->
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'login' %}">Log In</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'register' %}">Register</a>
                 </li>
-            {% endif %}
+            <!-- {% endif %} -->
         </ul>
         <hr>
         {% block body %}
