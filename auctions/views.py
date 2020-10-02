@@ -3,6 +3,8 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.forms import ModelForm
+from .models import Item
 
 from .models import User
 
@@ -72,7 +74,12 @@ def watch_list(request):
         
     })
 
+class ItemForm(ModelForm):
+    class Meta:
+        model = Item
+        fields = ['title']
+
 def create_listing(request):
     return render(request, "auctions/create_listing.html",{
-        
+        "form" : ItemForm()
     })

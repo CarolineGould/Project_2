@@ -16,4 +16,7 @@ class User(AbstractUser):
 #     create_date = models.DateTimeField(auto_now=True)
 #     bid_amount=models.
 #     max_bid=
+
+class Item(models.Model):
+    title= models.CharField(max_length=64)
     
