@@ -3,6 +3,10 @@
 {% block body %}
     <h2>Create Listing</h2>
 
-    {{form}}
+    <form action= "create_listing" method = "POST">
+        {{form}} 
+        {% csrf_token %}
+        <input type="submit">
+   </form> 
 
 {% endblock %}

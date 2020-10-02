@@ -80,6 +80,16 @@ class ItemForm(ModelForm):
         fields = ["title", "description", "category", "starting_bid", "image_URL" ]
 
 def create_listing(request):
-    return render(request, "auctions/create_listing.html",{
-        "form" : ItemForm()
-    })
+    if request.method == "GET":
+        return render(request, "auctions/create_listing.html",{
+            "form" : ItemForm()
+        })
+    if request.method == "POST":
+        form = ItemForm(request.POST)
+        if form.is_valid():
+            form.save() 
+            return HttpResponseRedirect(reverse("index"))
+        return render(request, "auctions/create_listing.html",{
+            "form" : ItemForm()
+        })
+
