@@ -19,4 +19,7 @@ class User(AbstractUser):
 
 class Item(models.Model):
     title= models.CharField(max_length=64)
-    
+    description=models.CharField(max_length=1000)
+    category= models.CharField (max_length=64)
+    starting_bid= models.DecimalField(max_digits=6, decimal_places=2)
+    image_URL=models.CharField (max_length=1000)

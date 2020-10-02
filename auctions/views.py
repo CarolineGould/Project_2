@@ -77,7 +77,7 @@ def watch_list(request):
 class ItemForm(ModelForm):
     class Meta:
         model = Item
-        fields = ['title']
+        fields = ["title", "description", "category", "starting_bid", "image_URL" ]
 
 def create_listing(request):
     return render(request, "auctions/create_listing.html",{
