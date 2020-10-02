@@ -23,3 +23,6 @@ class Item(models.Model):
     category= models.CharField (max_length=64)
     starting_bid= models.DecimalField(max_digits=6, decimal_places=2)
     image_URL=models.CharField (max_length=1000)
+
+    def __str__(self):
+        return f"{self.title}: {self.description}, {self.category}, {self.starting_bid}, {self.image_URL}"
