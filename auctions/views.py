@@ -10,7 +10,11 @@ from .models import User
 
 
 def index(request):
-    return render(request, "auctions/index.html")
+    return render(request, "auctions/index.html", {
+        "entries": Item.objects.all()
+    })
+
+    
 
 
 def login_view(request):
@@ -92,4 +96,5 @@ def create_listing(request):
         return render(request, "auctions/create_listing.html",{
             "form" : ItemForm()
         })
+
 

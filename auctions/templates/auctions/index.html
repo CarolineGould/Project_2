@@ -2,6 +2,10 @@
 
 {% block body %}
     <h2>Active Listings</h2>
-
-    TODO
+ <ul>
+        {% for entry in entries %}
+            <li ><a href = 'wiki/{{entry.title}}' >{{ entry.title }}</a></li>
+        {% endfor %}
+    </ul>   
+  
 {% endblock %}
