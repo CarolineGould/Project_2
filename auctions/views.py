@@ -14,7 +14,10 @@ def index(request):
         "entries": Item.objects.all()
     })
 
-    
+def auctions(request,id):
+    return render(request, "auctions/listing.html", {
+        "listing": Item.objects.get(pk=id)
+    })
 
 
 def login_view(request):
