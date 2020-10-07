@@ -106,6 +106,12 @@ def categories(request):
         "categories": categories
     })
 
+def category_listings(request, category):
+    return render(request, "auctions/index.html", {
+        "listings": Items.objects.filter(closed=False, category=category),
+        "title": f'Active listings under "{category}"'
+    })
+
 
 # class BidForm(ModelForm):
 #     class Meta:
