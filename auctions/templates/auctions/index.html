@@ -4,8 +4,16 @@
     <h2>Active Listings</h2>
  <ul>
         {% for entry in entries %}
+        <ul>
             <li ><a href = 'auctions/{{entry.id}}' >{{ entry.title }}</a></li>
+            <ul>
+                <li>{{ entry.category}} </li>
+                <li>{{ entry.image_URL}} </li>
+                <li>{{ entry.description}} </li>
+                <li>{{ entry.starting_bid}} </li>
+                
         {% endfor %}
-    </ul>   
+    </ul>
+</ul>   
   
 {% endblock %}
