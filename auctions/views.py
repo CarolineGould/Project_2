@@ -15,8 +15,12 @@ def index(request):
     })
 
 def auctions(request,id):
+    auction_item = Item.objects.get(pk=id)
+
     return render(request, "auctions/listing.html", {
-        "listing": Item.objects.get(pk=id)
+        "listing": auction_item,
+        "min_bid": auction_item.starting_bid
+
     })
 
 
@@ -71,11 +75,6 @@ def register(request):
     else:
         return render(request, "auctions/register.html")
 
-def categories(request):
-    return render(request, "auctions/categories.html",{
-        
-    })
-
 def watch_list(request):
     return render(request, "auctions/watch_list.html",{
         
@@ -100,4 +99,19 @@ def create_listing(request):
             "form" : ItemForm()
         })
 
+def categories(request):    
+    categories = list(set([listing.category for listing in Item.objects.all() if listing.category]))
+    print(categories)
+    return render(request, "auctions/categories.html", {
+        "categories": categories
+    })
+
+
+# class BidForm(ModelForm):
+#     class Meta:
+#         model = Bid
+#         fields = ["bid_amount"]
+
+# def bid(request):
+#     request.POST.body
 

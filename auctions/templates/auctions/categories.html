@@ -3,5 +3,9 @@
 {% block body %}
     <h2>Categories</h2>
 
-    TODO
+    <ul>
+        {% for category in categories %}
+            <li ><a href = "{% url 'categories' %}" >{{ category }}</a></li>
+        {% endfor %}
+    </ul>       
 {% endblock %}

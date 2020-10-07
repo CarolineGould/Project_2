@@ -3,5 +3,10 @@
 {% block body %}
     <h2>{{listing.title}}</h2>
  
-  
+        <form action ="bid" method="POST"> 
+            <!-- <input type="number" name= "bid_amount" min= "{{min_bid}}"/> -->
+            {{form}}
+            <input type = "submit"/> 
+            <input type ="hidden" name ="item_id" value = "{{listing.id}}"/>
+        </form>
 {% endblock %}
