@@ -2,18 +2,26 @@
 
 {% block body %}
     <h2>Active Listings</h2>
- <ul>
-        {% for entry in entries %}
-        <ul>
-            <li ><a href = 'auctions/{{entry.id}}' >{{ entry.title }}</a></li>
-            <ul>
-                <li>{{ entry.category}} </li>
-                <li>{{ entry.image_URL}} </li>
-                <li>{{ entry.description}} </li>
-                <li>{{ entry.starting_bid}} </li>
-                
-        {% endfor %}
-    </ul>
-</ul>   
-  
-{% endblock %}
+    
+    <div class="container all-listings">
+    <ul style= "list-style-type:none;">
+           {% for entry in entries %}
+        
+           <div class="card">
+           
+               <h4><a href = 'auctions/{{entry.id}}' >{{ entry.title }}</a></h4>
+
+               <div class="container">
+
+                   <li>{{ entry.category}} </li>
+                   <li>{{ entry.image_URL}} </li>
+                   <li>{{ entry.description}} </li>
+                   <li>{{ entry.starting_bid}} </li>
+                </div>
+        </div>
+           {% endfor %}
+                 
+       
+   </ul>   
+</div>
+   {% endblock %} 
