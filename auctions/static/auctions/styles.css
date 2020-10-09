@@ -2,6 +2,6 @@ body {
     padding: 10px;
 }
 
-.card   {
-    padding: 30px;
+.card > a  {
+    padding: 50px;
 }

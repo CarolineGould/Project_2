@@ -2,11 +2,29 @@
 
 {% block body %}
     <h2>{{listing.title}}</h2>
+    <div class="container">
+    <ul>
+        <li>{{ listing.category}} </li>
+        <li>{{ listing.image_URL}} </li>
+        <li>{{ listing.description}} </li>
+        <li>{{ listing.starting_bid}} </li>
+    </ul>
+     </div>
  
-        <form action ="bid" method="POST"> 
-            <!-- <input type="number" name= "bid_amount" min= "{{min_bid}}"/> -->
-            {{form}}
-            <input type = "submit"/> 
-            <input type ="hidden" name ="item_id" value = "{{listing.id}}"/>
-        </form>
+    <form action ="bid" method="POST"> 
+        {% csrf_token %}
+        <!-- <input type="number" name= "bid_amount" min= "{{min_bid}}"/> -->
+        {{form}}
+        <input type = "submit" value ="Bid Now"/> 
+        <input type ="hidden" name ="item_id" value = "{{listing.id}}"/>
+    </form>
+        
+    <form action ="/comment" method="POST"> 
+        {% csrf_token %}
+        <!-- <input type="number" name= "bid_amount" min= "{{min_bid}}"/> -->
+        {{comment_form}}
+        <input type = "submit" value ="Add Comment"/> 
+        <input type ="hidden" name ="item_id" value = "{{listing.id}}"/>
+    </form>
+
 {% endblock %}
