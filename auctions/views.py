@@ -144,10 +144,10 @@ def category_listings(request, category):
 #         return HttpResponseRedirect(reverse("index"))
 
 
-def comment(request,id):
+def comment(request):
     if request.method == "POST":
-        item_id = Item.objects.get(pk=id)
-        message_content = request.POST["comment"]
-        comment= Comment(user_id=request.user, item_id=item_id, message=message_content)
+        item_id = request.POST["item_id"]
+        message_content = request.POST["message"]
+        comment= Comment(user_id=request.user, item_id=Item.objects.get(pk=item_id), message=message_content)
         comment.save()
-    return HttpResponseRedirect(reverse("auctions:listing", args=(id,)))
+    return HttpResponseRedirect(reverse('auctions' , args =[item_id]))
