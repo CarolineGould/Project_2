@@ -37,9 +37,8 @@ class Bid(models.Model):
     def __str__(self):
         return f"{self.id}: {self.item_id}, {self.create_date}, {self.bid_amount}, {self.item_id}"
 
-class Comment(models.Model):
-    id= models.AutoField(primary_key=True)
+class Comment(models.Model):    
     message= models.TextField()
-    user_id= models.ForeignKey(User, on_delete=models.CASCADE)
-    item_id = models.ForeignKey(Item, on_delete=models.CASCADE, db_column="id") 
+    user_id= models.ForeignKey(User, on_delete=models.CASCADE, related_name ="comments")
+    item_id = models.ForeignKey(Item, on_delete=models.CASCADE, related_name ="comments") 
     create_date= models.DateTimeField (auto_now_add= True)

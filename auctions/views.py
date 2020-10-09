@@ -129,17 +129,25 @@ def category_listings(request, category):
 #     request.POST.body
 
 
-def comment (request):
-    if request.method =="POST":
-        # username = None
-        # if request.user.is_authenticated:
-        #     username = request.user.username
-        comment= CommentForm(request.POST)
-        # print (username)
-        # comment.data["user_id"] = username
-        # id= comment.data.item_id 
-        if comment.is_valid():
-            comment.save()
-            return HttpResponseRedirect(reverse("index" ))
-        return HttpResponseRedirect(reverse("index"))
-        
+# def comment (request):
+#     if request.method =="POST":
+#         # username = None
+#         # if request.user.is_authenticated:
+#         #     username = request.user.username
+#         comment= CommentForm(request.POST)
+#         # print (username)
+#         # comment.data["user_id"] = username
+#         # id= comment.data.item_id 
+#         if comment.is_valid():
+#             comment.save()
+#             return HttpResponseRedirect(reverse("index" ))
+#         return HttpResponseRedirect(reverse("index"))
+
+
+def comment(request,id):
+    if request.method == "POST":
+        item_id = Item.objects.get(pk=id)
+        message_content = request.POST["comment"]
+        comment= Comment(user_id=request.user, item_id=item_id, message=message_content)
+        comment.save()
+    return HttpResponseRedirect(reverse("auctions:listing", args=(id,)))
