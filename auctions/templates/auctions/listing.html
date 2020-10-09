@@ -27,4 +27,18 @@
         <input type ="hidden" , id = "id" name ="item_id" value = "{{listing.id}}"/>
     </form>
 
+    <div>
+        <h3>Comments on this Listing</h3>
+
+        <div class="container">
+
+            {% for comment in listing.comments.all %}
+                <div class="row each-comment">
+                    <div class="col">
+                        <h5><strong>{{ comment.user_id }}</strong> said:</h5>
+                        <p> {{ comment.message}}</p>
+                    </div>
+                </div>
+            {% endfor %}
+    </div>
 {% endblock %}
