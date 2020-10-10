@@ -28,7 +28,7 @@ def auctions(request,id):
 
     return render(request, "auctions/listing.html", {
         "listing": auction_item,
-        "min_bid": auction_item.starting_bid,
+        "min_bid": get_min_price(id),
         "comment_form": CommentForm(initial={
             "user_id": request.user.username
         }),
@@ -144,3 +144,10 @@ def comment(request):
         comment= Comment(user_id=request.user, item_id=Item.objects.get(pk=item_id), message=message_content)
         comment.save()
     return HttpResponseRedirect(reverse('auctions' , args =[item_id]))
+
+def get_min_price(id):
+    list_bids=Bid.objects.filter(item_id=id).order_by("-bid_amount")
+    if len(list_bids) > 0:
+        return list_bids[0].bid_amount
+    bid_item = Item.objects.get(pk=id)
+    return bid_item.starting_bid  

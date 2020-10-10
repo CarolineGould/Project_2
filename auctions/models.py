@@ -22,6 +22,7 @@ class Item(models.Model):
     starting_bid= models.DecimalField(max_digits=6, decimal_places=2)
     # starting_bid= MoneyField(max_digits=14, decimal_places=2, default_currency='USD')
     image_URL=models.CharField (max_length=1000)
+    watchlist_users = models.ManyToManyField(User, blank=True, related_name="watchlist_items")
 
     def __str__(self):
         return f"{self.title}: {self.description}, {self.category}, {self.starting_bid}, {self.image_URL}"
