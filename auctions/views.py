@@ -18,8 +18,11 @@ class BidForm(ModelForm):
 
 
 def index(request):
+    auction_items=Item.objects.all() 
+    for item in auction_items:
+        item.price= get_min_price(item.id)
     return render(request, "auctions/index.html", {
-        "entries": Item.objects.all()
+        "entries": auction_items
     })
 
 def auctions(request,id):
