@@ -1,10 +1,14 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Watch List</h2>
-    <ul>
-        {% for item in watch_items %}
-            <li >{{ item }}</li>
+    <h2>Watch List</h2> 
+    <ul style= "list-style-type:none;">
+        {% for listing in listings %}
+        <li><a href= 'auctions/{{listing.id}}'>{{ listing.title}}</a> </li>
+        <li>{{ listing.category}} </li>
+        <li>{{ listing.image_URL}} </li>
+        <li>{{ listing.description}} </li>
+        <li> Current Price $ {{ current_price}} </li>
         {% endfor %}
     </ul>
 

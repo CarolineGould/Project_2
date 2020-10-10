@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.forms import ModelForm
 from django.contrib.auth.decorators import login_required
-from .models import Item, User, Comment, Bid
+from .models import Item, User, Comment, Bid, WatchList
 
 class CommentForm(ModelForm):
     class Meta:
@@ -138,7 +138,7 @@ def bid(request):
         bid.save()
     return HttpResponseRedirect(reverse('auctions' , args =[item_id]))
 
-
+@login_required
 def comment(request):
     if request.method == "POST":
         item_id = request.POST["item_id"]
@@ -169,10 +169,43 @@ def add_to_watch(request,id):
     return HttpResponseRedirect(reverse('auctions' , args =[item_id]))
 
 
+# def watch_list (request,username):
+#     username = request.POST["username"]
+#     if request.user.username:
+#         try:
+#             watching = WatchList.objects.filter(user=username)
+#             items = []
+#             for i in watching:
+#                 items.append(Item.objects.filter(id=i.listingid))
+#             try:
+#                 watching = WatchList.objects.filter(user_id=request.user)
+#                 wlcount=len(watching)
+#             except:
+#                 wlcount=None
+#             return render(request,"auctions/watch_list.html",{
+#                 "items":items,
+#                 "wlcount":wlcount
+#             })
+#         except:
+#             try:
+#                 watching = WatchList.objects.filter(user=request.user.username)
+#                 wlcount=len(watching)
+#             except:
+#                 wlcount=None
+#             return render(request,"auctions/watch_list.html",{
+#                 "items":None,
+#                 "wlcount":wlcount
+#             })
+#     else:
+#        return HttpResponseRedirect(reverse("index"))
+
+
 def watch_list (request):
-    return render(request, "auctions/index.html", {
-        "listings": request.user.watchlist_items.all(),
-        "title": "Watchlist Items"
+    watch_items= request.user.watchlist_items.all()
+    return render(request, "auctions/watch_list.html", {
+        "listings": watch_items,
+        "title": "Watchlist Items",
+
     })
 
 # def close_bid(request):
@@ -180,3 +213,25 @@ def watch_list (request):
 #         item_id = request.POST["item_id"]
 #         if request.user_id == Item.objects.filter(id=item_id).user
 #         Item.objects.filter(id=item_id).update(is_closed=True)
+
+# def add_to_watch (request,item_id):
+#     if request.user.username:
+#         watching = WatchList()
+#         watching.user = request.user.username
+#         watching.item_id = item_id
+#         watching.save()
+#         return HttpResponseRedirect(reverse('auctions' , args =[item_id]))
+#     else:
+#         return HttpResponseRedirect(reverse("index"))
+
+
+# def removewatchlist(request,listingid):
+#     if request.user.username:
+#         try:
+#             w = Watchlist.objects.get(user=request.user.username,listingid=listingid)
+#             w.delete()
+#             return redirect('listingpage',id=listingid)
+#         except:
+#             return redirect('listingpage',id=listingid)
+#     else:
+#         return redirect('index')
