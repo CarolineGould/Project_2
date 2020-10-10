@@ -22,7 +22,9 @@ class Item(models.Model):
     starting_bid= models.DecimalField(max_digits=6, decimal_places=2)
     # starting_bid= MoneyField(max_digits=14, decimal_places=2, default_currency='USD')
     image_URL=models.CharField (max_length=1000)
+    is_closed =models.BooleanField(default= False)
     watchlist_users = models.ManyToManyField(User, blank=True, related_name="watchlist_items")
+
 
     def __str__(self):
         return f"{self.title}: {self.description}, {self.category}, {self.starting_bid}, {self.image_URL}"
@@ -42,3 +44,8 @@ class Comment(models.Model):
     user_id= models.ForeignKey(User, on_delete=models.CASCADE, related_name ="comments")
     item_id = models.ForeignKey(Item, on_delete=models.CASCADE, related_name ="comments") 
     create_date= models.DateTimeField (auto_now_add= True)
+
+# class WatchList (models.Model):
+#     item_id = models.ForeignKey(Item, on_delete=models.CASCADE)
+#     user_id= models.ForeignKey(User, on_delete=models.CASCADE)
+

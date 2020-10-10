@@ -2,29 +2,43 @@
 
 {% block body %}
     <h2>{{listing.title}}</h2>
-    <div class="container">
-    <ul>
+    <div class="card-mb3">
+    
+    <ul style="list-style-type:none;">
         <li>{{ listing.category}} </li>
         <li>{{ listing.image_URL}} </li>
         <li>{{ listing.description}} </li>
-        <li>{{ current_price}} </li>
+        <li> Current Price $ {{ current_price}} </li>
     </ul>
-     </div>
- 
+    </div>
+
+            <form action="{% url 'add_to_watch' listing.pk %}" method="POST">
+            {% csrf_token %}
+            <input type= "hidden" id = "id" name ="item_id" value = "{{listing.id}}"/>
+            <input type="submit" value = "Add to Watch List"/>
+        </form>
+    
+  
+        <form action ="/bid" method="POST"> 
+            {% csrf_token %}
+            <input type="number" name= "bid_amount" min= '{{min_bid}}'/>
+            <input type = "submit" value ="Bid Now"/> 
+            <input type ="hidden" name ="item_id" value = "{{listing.id}}"/>
+        </form>
+  
+
     <form action ="/bid" method="POST"> 
-        {% csrf_token %}
-        <input type="number" name= "bid_amount" min= '{{min_bid}}'/>
-        <input type = "submit" value ="Bid Now"/> 
-        <input type ="hidden" name ="item_id" value = "{{listing.id}}"/>
+       <input type = "submit" value ="Close Bid"/>    
     </form>
-        
+
+<div class ="container">       
     <form action ="/comment" method="POST"> 
         {% csrf_token %}
         {{comment_form}}
         <input type = "submit" value ="Add Comment"/> 
         <input type ="hidden" , id = "id" name ="item_id" value = "{{listing.id}}"/>
     </form>
-
+</div>
     <div>
         <h3>Comments on this Listing</h3>
 

@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.forms import ModelForm
+from django.contrib.auth.decorators import login_required
 from .models import Item, User, Comment, Bid
 
 class CommentForm(ModelForm):
@@ -95,12 +96,7 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "auctions/register.html")
-
-def watch_list(request):
-    return render(request, "auctions/watch_list.html",{
-        
-    })
-
+   
 class ItemForm(ModelForm):
     class Meta:
         model = Item
@@ -133,7 +129,7 @@ def category_listings(request, category):
         "title": f'Active listings under "{category}"'
     })
 
-
+@login_required
 def bid(request):
     if request.method == "POST":
         item_id = request.POST["item_id"]
@@ -157,3 +153,30 @@ def get_min_price(id):
         return list_bids[0].bid_amount
     bid_item = Item.objects.get(pk=id)
     return bid_item.starting_bid  
+
+@login_required
+def add_to_watch(request,id):
+    if request.method == "POST":
+        item_id = request.POST["item_id"]
+        print (item_id)
+        assert request.user.is_authenticated
+        user = request.user
+        listing = Item.objects.get(pk=id)
+        if user.watchlist_items.filter(pk=id).exists():
+            user.watchlist_items.remove(listing)
+        else:
+            user.watchlist_items.add(listing)
+    return HttpResponseRedirect(reverse('auctions' , args =[item_id]))
+
+
+def watch_list (request):
+    return render(request, "auctions/index.html", {
+        "listings": request.user.watchlist_items.all(),
+        "title": "Watchlist Items"
+    })
+
+# def close_bid(request):
+#     if request.method =="POST":
+#         item_id = request.POST["item_id"]
+#         if request.user_id == Item.objects.filter(id=item_id).user
+#         Item.objects.filter(id=item_id).update(is_closed=True)

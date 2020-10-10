@@ -2,6 +2,10 @@
 
 {% block body %}
     <h2>Watch List</h2>
+    <ul>
+        {% for item in watch_items %}
+            <li >{{ item }}</li>
+        {% endfor %}
+    </ul>
 
-    TODO
 {% endblock %}
