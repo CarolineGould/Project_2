@@ -11,11 +11,12 @@
     </ul>
      </div>
  
-    <form action ="bid" method="POST"> 
+    <form action ="/bid" method="POST"> 
         {% csrf_token %}
         <!-- <input type="number" name= "bid_amount" min= "{{min_bid}}"/> -->
-        {{form}}
+        {{bid_form}}
         <input type = "submit" value ="Bid Now"/> 
+        <!-- <input type="text" name="bid_amount" value="{{listing.bid_amount}}"> -->
         <input type ="hidden" name ="item_id" value = "{{listing.id}}"/>
     </form>
         

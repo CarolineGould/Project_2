@@ -27,7 +27,6 @@ class Item(models.Model):
         return f"{self.title}: {self.description}, {self.category}, {self.starting_bid}, {self.image_URL}"
 
 class Bid(models.Model):
-    id =models.AutoField(primary_key=True)
     item_id = models.ForeignKey(Item, on_delete=models.CASCADE)
     create_date = models.DateTimeField(auto_now=True)
     bid_amount=models.DecimalField(max_digits=6, decimal_places=2)

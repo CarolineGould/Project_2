@@ -4,12 +4,17 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.forms import ModelForm
-from .models import Item, User, Comment
+from .models import Item, User, Comment, Bid
 
 class CommentForm(ModelForm):
     class Meta:
         model= Comment
         fields = ["message"]
+
+class BidForm(ModelForm):
+    class Meta:
+        model = Bid
+        fields = ["bid_amount"]
 
 
 def index(request):
@@ -26,8 +31,11 @@ def auctions(request,id):
         "min_bid": auction_item.starting_bid,
         "comment_form": CommentForm(initial={
             "user_id": request.user.username
+        }),
+        
+        "bid_form": BidForm(initial={
+            "user_id": request.user.username
         })
-
     })
 
 
@@ -120,28 +128,13 @@ def category_listings(request, category):
     })
 
 
-# class BidForm(ModelForm):
-#     class Meta:
-#         model = Bid
-#         fields = ["bid_amount"]
-
-# def bid(request):
-#     request.POST.body
-
-
-# def comment (request):
-#     if request.method =="POST":
-#         # username = None
-#         # if request.user.is_authenticated:
-#         #     username = request.user.username
-#         comment= CommentForm(request.POST)
-#         # print (username)
-#         # comment.data["user_id"] = username
-#         # id= comment.data.item_id 
-#         if comment.is_valid():
-#             comment.save()
-#             return HttpResponseRedirect(reverse("index" ))
-#         return HttpResponseRedirect(reverse("index"))
+def bid(request):
+    if request.method == "POST":
+        item_id = request.POST["item_id"]
+        bidded_amount = request.POST["bid_amount"]
+        bid= Bid(user_id=request.user, item_id=Item.objects.get(pk=item_id), bid_amount = bidded_amount)
+        bid.save()
+    return HttpResponseRedirect(reverse('auctions' , args =[item_id]))
 
 
 def comment(request):
