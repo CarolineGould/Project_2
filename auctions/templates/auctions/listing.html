@@ -7,22 +7,19 @@
         <li>{{ listing.category}} </li>
         <li>{{ listing.image_URL}} </li>
         <li>{{ listing.description}} </li>
-        <li>{{ min_bid}} </li>
+        <li>{{ current_price}} </li>
     </ul>
      </div>
  
     <form action ="/bid" method="POST"> 
         {% csrf_token %}
-        <!-- <input type="number" name= "bid_amount" min= "{{min_bid}}"/> -->
-        {{bid_form}}
+        <input type="number" name= "bid_amount" min= '{{min_bid}}'/>
         <input type = "submit" value ="Bid Now"/> 
-        <!-- <input type="text" name="bid_amount" value="{{listing.bid_amount}}"> -->
         <input type ="hidden" name ="item_id" value = "{{listing.id}}"/>
     </form>
         
     <form action ="/comment" method="POST"> 
         {% csrf_token %}
-        <!-- <input type="number" name= "bid_amount" min= "{{min_bid}}"/> -->
         {{comment_form}}
         <input type = "submit" value ="Add Comment"/> 
         <input type ="hidden" , id = "id" name ="item_id" value = "{{listing.id}}"/>

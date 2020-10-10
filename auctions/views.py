@@ -25,10 +25,13 @@ def index(request):
 def auctions(request,id):
     print (id)
     auction_item = Item.objects.get(pk=id)
+    current_price= get_min_price(id)
+    min_bid= current_price +1
 
     return render(request, "auctions/listing.html", {
         "listing": auction_item,
-        "min_bid": get_min_price(id),
+        "min_bid": min_bid,
+        "current_price": current_price,
         "comment_form": CommentForm(initial={
             "user_id": request.user.username
         }),
