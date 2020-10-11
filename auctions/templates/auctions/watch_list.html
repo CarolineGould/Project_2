@@ -5,10 +5,6 @@
     <ul style= "list-style-type:none;">
         {% for listing in listings %}
         <li><a href= 'auctions/{{listing.id}}'>{{ listing.title}}</a> </li>
-        <li>{{ listing.category}} </li>
-        <li>{{ listing.image_URL}} </li>
-        <li>{{ listing.description}} </li>
-        <li> Current Price $ {{ current_price}} </li>
         {% endfor %}
     </ul>
 
