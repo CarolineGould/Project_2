@@ -12,7 +12,7 @@
     </ul>
     </div>
 
-            <form action="{% url 'add_to_watch' listing.pk %}" method="POST">
+        <form action="{% url 'add_to_watch' listing.pk %}" method="POST">
             {% csrf_token %}
             <input type= "hidden" id = "id" name ="item_id" value = "{{listing.id}}"/>
             <input type="submit" value = "Add to Watch List"/>

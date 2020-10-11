@@ -124,8 +124,8 @@ def categories(request):
     })
 
 def category_listings(request, category):
-    return render(request, "auctions/index.html", {
-        "listings": Items.objects.filter(closed=False, category=category),
+    return render(request, "auctions/category_list.html", {
+        "listings": Item.objects.filter(category=category),
         "title": f'Active listings under "{category}"'
     })
 
