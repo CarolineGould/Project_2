@@ -32,11 +32,11 @@
         </form>
   
 
-    <form action ="{% url 'close_listing' listing.pk %}" method="POST"> 
-        {% csrf_token %}
-        <input type= "hidden" id = "id" name ="item_id" value = "{{listing.id}}"/>
-       <input type = "submit" value ="Close Bid"/>    
-    </form>
+        <form action ="{% url 'close_listing' listing.pk %}" method="POST"> 
+            {% csrf_token %}
+            <input type= "hidden" id = "id" name ="item_id" value = "{{listing.id}}"/>
+            <input type = "submit" value ="Close Bid"/>    
+        </form>
 
 <div class ="container">       
     <form action ="/comment" method="POST"> 
