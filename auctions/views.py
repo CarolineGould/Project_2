@@ -158,14 +158,23 @@ def get_min_price(id):
 def add_to_watch(request,id):
     if request.method == "POST":
         item_id = request.POST["item_id"]
-        print (item_id)
+        assert request.user.is_authenticated
+        user = request.user
+        listing = Item.objects.get(pk=id)
+        if not user.watchlist_items.filter(pk=id).exists():
+            user.watchlist_items.add(listing)
+    return HttpResponseRedirect(reverse('auctions' , args =[item_id]))
+
+@login_required
+def remove_from_watch(request,id):
+    if request.method == "POST":
+        item_id = request.POST["item_id"]
         assert request.user.is_authenticated
         user = request.user
         listing = Item.objects.get(pk=id)
         if user.watchlist_items.filter(pk=id).exists():
             user.watchlist_items.remove(listing)
-        else:
-            user.watchlist_items.add(listing)
+       
     return HttpResponseRedirect(reverse('auctions' , args =[item_id]))
 
 
