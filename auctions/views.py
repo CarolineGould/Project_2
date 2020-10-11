@@ -190,7 +190,5 @@ def close_bid(request):
     if request.method =="POST":
         item_id = request.POST["item_id"]
         if request.user_id == Item.objects.filter(id=item_id).get(seller):
-            print(":HEREE")
             Item.objects.filter(id=item_id).update(is_closed=True)
-    
     return HttpResponseRedirect(reverse('auctions' , args =[item_id]))
